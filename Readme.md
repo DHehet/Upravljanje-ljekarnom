@@ -2,7 +2,18 @@
 Windows Forms aplikacija napravljena koristeći .NET Framework i C# programski jezik koja služi za lakše upravljanje ljekarničkim dužnostima. Aplikacija je napravljena u sklopu timskog projekta na kolegiju Programsko inženjerstvo na Fakultetu organizacije i informatike. 
 
 Funkcionalnosti navedene u nastavku predstavljaju moja zaduženja u projektu.
-## Funkcionalnosti 
+## Funkcionalnosti
+### Popis proizvođača
+Na sljedećoj slici je prikazan prozor popisa proizvođača koja prikazuje njihove informacije. Ako se prijavite u aplikaciju kao **običan korisnik** tada nemate pristup dodavanju, ažuriranju i brisanju proizvođača s popisa te se za te mogućnosti trebate prijaviti kao **administrator**.
+
+![image](https://user-images.githubusercontent.com/92993079/181746853-79a77962-c8b3-48f9-8b7c-eb30ca4a0b00.png)
+
+Ako želite dodati proizvođača na popis, potrebno je unijeti podatke u polja iznad. Ako želite ažurirati podatke ili obrisati određenog proizvođača tada ga trebate označiti u tablici i kliknuti na gumb.
+### Naručivanje lijekova
+
+
+![image](https://user-images.githubusercontent.com/92993079/181747512-61451f2b-2d96-4799-8b12-97b549b83a59.png)
+
 ## Korištenje
 Kako se u projektu nalaze osjetljive informacije vezane uz centraliziranu bazu podataka, odlučio sam enkriptirati datoteku koja te informacije sadrži kako podaci ne bi bili dostupni u *plain textu*. Koristio sam RSA algoritam te ću ovdje navesti korake kako dekriptirati datoteku na vašem računalu kako biste mogli pristupiti bazi te pokrenuti aplikaciju.
 ***
