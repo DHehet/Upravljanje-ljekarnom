@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c16ca07b1ef54cb299942c788966ffab" Name="Diagram1">
+        <EntityTypeShape EntityType="PharmaCare_DBModel.klijent" Width="1.5" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PharmaCare_DBModel.korisnik" Width="1.5" PointX="0.875" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PharmaCare_DBModel.lijek" Width="1.5" PointX="9.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PharmaCare_DBModel.proizvodac" Width="1.5" PointX="10" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PharmaCare_DBModel.racun" Width="1.5" PointX="1" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PharmaCare_DBModel.stavka_racuna" Width="1.5" PointX="4.625" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PharmaCare_DBModel.uloga" Width="1.5" PointX="4.875" PointY="9.625" IsExpanded="true" />
+        <AssociationConnector Association="PharmaCare_DBModel.FK_racun_klijent" ManuallyRouted="false" />
+        <AssociationConnector Association="PharmaCare_DBModel.FK_korisnik_uloga" ManuallyRouted="false" />
+        <AssociationConnector Association="PharmaCare_DBModel.FK_racun_korisnik" ManuallyRouted="false" />
+        <AssociationConnector Association="PharmaCare_DBModel.FK_lijek_proizvodac" ManuallyRouted="false" />
+        <AssociationConnector Association="PharmaCare_DBModel.FK_stavka_racuna_lijek" ManuallyRouted="false" />
+        <AssociationConnector Association="PharmaCare_DBModel.FK_stavka_racuna_racun" ManuallyRouted="false" />
+        <AssociationConnector Association="PharmaCare_DBModel.koristi" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

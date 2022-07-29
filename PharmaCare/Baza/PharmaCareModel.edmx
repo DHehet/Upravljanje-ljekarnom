@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PharmaCare_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="klijent">
+          <Key>
+            <PropertyRef Name="klijent_id" />
+          </Key>
+          <Property Name="klijent_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prezime" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="kontakt_broj" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="email_adresa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="starost" Type="int" Nullable="false" />
+          <Property Name="clan" Type="bit" Nullable="false" />
+          <Property Name="bodovi" Type="int" />
+        </EntityType>
+        <EntityType Name="korisnik">
+          <Key>
+            <PropertyRef Name="korisnik_id" />
+          </Key>
+          <Property Name="korisnik_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prezime" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="kontakt_broj" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="email_adresa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="lozinka" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="uloga_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="koristi">
+          <Key>
+            <PropertyRef Name="klijent_id" />
+            <PropertyRef Name="lijek_id" />
+          </Key>
+          <Property Name="klijent_id" Type="int" Nullable="false" />
+          <Property Name="lijek_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lijek">
+          <Key>
+            <PropertyRef Name="lijek_id" />
+          </Key>
+          <Property Name="lijek_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="stanje_zaliha" Type="int" Nullable="false" />
+          <Property Name="cijena (HRK)" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="opis" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="rok_uporabe" Type="datetime" Nullable="false" />
+          <Property Name="ime_dobavljaca" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="datum_proizvodnje" Type="datetime" Nullable="false" />
+          <Property Name="proizvodac_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proizvodac">
+          <Key>
+            <PropertyRef Name="proizvodac_id" />
+          </Key>
+          <Property Name="proizvodac_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="adresa" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="zemlja_porijekla" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="kontakt_broj" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="racun">
+          <Key>
+            <PropertyRef Name="racun_id" />
+          </Key>
+          <Property Name="racun_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ukupni_iznos (HRK)" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="datum_vrijeme_izdavanja" Type="datetime" Nullable="false" />
+          <Property Name="klijent_id" Type="int" Nullable="false" />
+          <Property Name="korisnik_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="stavka_racuna">
+          <Key>
+            <PropertyRef Name="racun_id" />
+            <PropertyRef Name="lijek_id" />
+          </Key>
+          <Property Name="racun_id" Type="int" Nullable="false" />
+          <Property Name="lijek_id" Type="int" Nullable="false" />
+          <Property Name="kolicina" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uloga">
+          <Key>
+            <PropertyRef Name="uloga_id" />
+          </Key>
+          <Property Name="uloga_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv_uloge" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="datum_dodjele" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_korisnik_uloga">
+          <End Role="uloga" Type="Self.uloga" Multiplicity="1" />
+          <End Role="korisnik" Type="Self.korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uloga">
+              <PropertyRef Name="uloga_id" />
+            </Principal>
+            <Dependent Role="korisnik">
+              <PropertyRef Name="uloga_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_koristi_klijent">
+          <End Role="klijent" Type="Self.klijent" Multiplicity="1" />
+          <End Role="koristi" Type="Self.koristi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klijent">
+              <PropertyRef Name="klijent_id" />
+            </Principal>
+            <Dependent Role="koristi">
+              <PropertyRef Name="klijent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_koristi_lijek">
+          <End Role="lijek" Type="Self.lijek" Multiplicity="1" />
+          <End Role="koristi" Type="Self.koristi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lijek">
+              <PropertyRef Name="lijek_id" />
+            </Principal>
+            <Dependent Role="koristi">
+              <PropertyRef Name="lijek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lijek_proizvodac">
+          <End Role="proizvodac" Type="Self.proizvodac" Multiplicity="1" />
+          <End Role="lijek" Type="Self.lijek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proizvodac">
+              <PropertyRef Name="proizvodac_id" />
+            </Principal>
+            <Dependent Role="lijek">
+              <PropertyRef Name="proizvodac_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_racun_klijent">
+          <End Role="klijent" Type="Self.klijent" Multiplicity="1" />
+          <End Role="racun" Type="Self.racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klijent">
+              <PropertyRef Name="klijent_id" />
+            </Principal>
+            <Dependent Role="racun">
+              <PropertyRef Name="klijent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_racun_korisnik">
+          <End Role="korisnik" Type="Self.korisnik" Multiplicity="1" />
+          <End Role="racun" Type="Self.racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="korisnik">
+              <PropertyRef Name="korisnik_id" />
+            </Principal>
+            <Dependent Role="racun">
+              <PropertyRef Name="korisnik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stavka_racuna_lijek">
+          <End Role="lijek" Type="Self.lijek" Multiplicity="1" />
+          <End Role="stavka_racuna" Type="Self.stavka_racuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lijek">
+              <PropertyRef Name="lijek_id" />
+            </Principal>
+            <Dependent Role="stavka_racuna">
+              <PropertyRef Name="lijek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stavka_racuna_racun">
+          <End Role="racun" Type="Self.racun" Multiplicity="1" />
+          <End Role="stavka_racuna" Type="Self.stavka_racuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="racun">
+              <PropertyRef Name="racun_id" />
+            </Principal>
+            <Dependent Role="stavka_racuna">
+              <PropertyRef Name="racun_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PharmaCare_DBModelStoreContainer">
+          <EntitySet Name="klijent" EntityType="Self.klijent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="korisnik" EntityType="Self.korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="koristi" EntityType="Self.koristi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lijek" EntityType="Self.lijek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proizvodac" EntityType="Self.proizvodac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="racun" EntityType="Self.racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stavka_racuna" EntityType="Self.stavka_racuna" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uloga" EntityType="Self.uloga" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_korisnik_uloga" Association="Self.FK_korisnik_uloga">
+            <End Role="uloga" EntitySet="uloga" />
+            <End Role="korisnik" EntitySet="korisnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_koristi_klijent" Association="Self.FK_koristi_klijent">
+            <End Role="klijent" EntitySet="klijent" />
+            <End Role="koristi" EntitySet="koristi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_koristi_lijek" Association="Self.FK_koristi_lijek">
+            <End Role="lijek" EntitySet="lijek" />
+            <End Role="koristi" EntitySet="koristi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lijek_proizvodac" Association="Self.FK_lijek_proizvodac">
+            <End Role="proizvodac" EntitySet="proizvodac" />
+            <End Role="lijek" EntitySet="lijek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_racun_klijent" Association="Self.FK_racun_klijent">
+            <End Role="klijent" EntitySet="klijent" />
+            <End Role="racun" EntitySet="racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_racun_korisnik" Association="Self.FK_racun_korisnik">
+            <End Role="korisnik" EntitySet="korisnik" />
+            <End Role="racun" EntitySet="racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stavka_racuna_lijek" Association="Self.FK_stavka_racuna_lijek">
+            <End Role="lijek" EntitySet="lijek" />
+            <End Role="stavka_racuna" EntitySet="stavka_racuna" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stavka_racuna_racun" Association="Self.FK_stavka_racuna_racun">
+            <End Role="racun" EntitySet="racun" />
+            <End Role="stavka_racuna" EntitySet="stavka_racuna" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PharmaCare_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="klijent">
+          <Key>
+            <PropertyRef Name="klijent_id" />
+          </Key>
+          <Property Name="klijent_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="kontakt_broj" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="starost" Type="Int32" Nullable="false" />
+          <Property Name="clan" Type="Boolean" Nullable="false" />
+          <Property Name="bodovi" Type="Int32" />
+          <NavigationProperty Name="racun" Relationship="Self.FK_racun_klijent" FromRole="klijent" ToRole="racun" />
+          <NavigationProperty Name="lijek" Relationship="Self.koristi" FromRole="klijent" ToRole="lijek" />
+        </EntityType>
+        <EntityType Name="korisnik">
+          <Key>
+            <PropertyRef Name="korisnik_id" />
+          </Key>
+          <Property Name="korisnik_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="kontakt_broj" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uloga_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="uloga" Relationship="Self.FK_korisnik_uloga" FromRole="korisnik" ToRole="uloga" />
+          <NavigationProperty Name="racun" Relationship="Self.FK_racun_korisnik" FromRole="korisnik" ToRole="racun" />
+        </EntityType>
+        <EntityType Name="lijek">
+          <Key>
+            <PropertyRef Name="lijek_id" />
+          </Key>
+          <Property Name="lijek_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cijena__HRK_" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="opis" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stanje_zaliha" Type="Int32" Nullable="false" />
+          <Property Name="rok_uporabe" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ime_dobavljaca" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datum_proizvodnje" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="proizvodac_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="proizvodac" Relationship="Self.FK_lijek_proizvodac" FromRole="lijek" ToRole="proizvodac" />
+          <NavigationProperty Name="stavka_racuna" Relationship="Self.FK_stavka_racuna_lijek" FromRole="lijek" ToRole="stavka_racuna" />
+          <NavigationProperty Name="klijent" Relationship="Self.koristi" FromRole="lijek" ToRole="klijent" />
+        </EntityType>
+        <EntityType Name="proizvodac">
+          <Key>
+            <PropertyRef Name="proizvodac_id" />
+          </Key>
+          <Property Name="proizvodac_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="zemlja_porijekla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="kontakt_broj" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="lijek" Relationship="Self.FK_lijek_proizvodac" FromRole="proizvodac" ToRole="lijek" />
+        </EntityType>
+        <EntityType Name="racun">
+          <Key>
+            <PropertyRef Name="racun_id" />
+          </Key>
+          <Property Name="racun_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ukupni_iznos__HRK_" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="datum_vrijeme_izdavanja" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="klijent_id" Type="Int32" Nullable="false" />
+          <Property Name="korisnik_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="klijent" Relationship="Self.FK_racun_klijent" FromRole="racun" ToRole="klijent" />
+          <NavigationProperty Name="korisnik" Relationship="Self.FK_racun_korisnik" FromRole="racun" ToRole="korisnik" />
+          <NavigationProperty Name="stavka_racuna" Relationship="Self.FK_stavka_racuna_racun" FromRole="racun" ToRole="stavka_racuna" />
+        </EntityType>
+        <EntityType Name="stavka_racuna">
+          <Key>
+            <PropertyRef Name="racun_id" />
+            <PropertyRef Name="lijek_id" />
+          </Key>
+          <Property Name="racun_id" Type="Int32" Nullable="false" />
+          <Property Name="lijek_id" Type="Int32" Nullable="false" />
+          <Property Name="kolicina" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="lijek" Relationship="Self.FK_stavka_racuna_lijek" FromRole="stavka_racuna" ToRole="lijek" />
+          <NavigationProperty Name="racun" Relationship="Self.FK_stavka_racuna_racun" FromRole="stavka_racuna" ToRole="racun" />
+        </EntityType>
+        <EntityType Name="uloga">
+          <Key>
+            <PropertyRef Name="uloga_id" />
+          </Key>
+          <Property Name="uloga_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv_uloge" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datum_dodjele" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="korisnik" Relationship="Self.FK_korisnik_uloga" FromRole="uloga" ToRole="korisnik" />
+        </EntityType>
+        <Association Name="FK_racun_klijent">
+          <End Role="klijent" Type="Self.klijent" Multiplicity="1" />
+          <End Role="racun" Type="Self.racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klijent">
+              <PropertyRef Name="klijent_id" />
+            </Principal>
+            <Dependent Role="racun">
+              <PropertyRef Name="klijent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_korisnik_uloga">
+          <End Role="uloga" Type="Self.uloga" Multiplicity="1" />
+          <End Role="korisnik" Type="Self.korisnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uloga">
+              <PropertyRef Name="uloga_id" />
+            </Principal>
+            <Dependent Role="korisnik">
+              <PropertyRef Name="uloga_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_racun_korisnik">
+          <End Role="korisnik" Type="Self.korisnik" Multiplicity="1" />
+          <End Role="racun" Type="Self.racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="korisnik">
+              <PropertyRef Name="korisnik_id" />
+            </Principal>
+            <Dependent Role="racun">
+              <PropertyRef Name="korisnik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lijek_proizvodac">
+          <End Role="proizvodac" Type="Self.proizvodac" Multiplicity="1" />
+          <End Role="lijek" Type="Self.lijek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proizvodac">
+              <PropertyRef Name="proizvodac_id" />
+            </Principal>
+            <Dependent Role="lijek">
+              <PropertyRef Name="proizvodac_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stavka_racuna_lijek">
+          <End Role="lijek" Type="Self.lijek" Multiplicity="1" />
+          <End Role="stavka_racuna" Type="Self.stavka_racuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lijek">
+              <PropertyRef Name="lijek_id" />
+            </Principal>
+            <Dependent Role="stavka_racuna">
+              <PropertyRef Name="lijek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stavka_racuna_racun">
+          <End Role="racun" Type="Self.racun" Multiplicity="1" />
+          <End Role="stavka_racuna" Type="Self.stavka_racuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="racun">
+              <PropertyRef Name="racun_id" />
+            </Principal>
+            <Dependent Role="stavka_racuna">
+              <PropertyRef Name="racun_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="koristi">
+          <End Role="klijent" Type="Self.klijent" Multiplicity="*" />
+          <End Role="lijek" Type="Self.lijek" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="PharmaCare_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="klijent" EntityType="Self.klijent" />
+          <EntitySet Name="korisnik" EntityType="Self.korisnik" />
+          <EntitySet Name="lijek" EntityType="Self.lijek" />
+          <EntitySet Name="proizvodac" EntityType="Self.proizvodac" />
+          <EntitySet Name="racun" EntityType="Self.racun" />
+          <EntitySet Name="stavka_racuna" EntityType="Self.stavka_racuna" />
+          <EntitySet Name="uloga" EntityType="Self.uloga" />
+          <AssociationSet Name="FK_racun_klijent" Association="Self.FK_racun_klijent">
+            <End Role="klijent" EntitySet="klijent" />
+            <End Role="racun" EntitySet="racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_korisnik_uloga" Association="Self.FK_korisnik_uloga">
+            <End Role="uloga" EntitySet="uloga" />
+            <End Role="korisnik" EntitySet="korisnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_racun_korisnik" Association="Self.FK_racun_korisnik">
+            <End Role="korisnik" EntitySet="korisnik" />
+            <End Role="racun" EntitySet="racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lijek_proizvodac" Association="Self.FK_lijek_proizvodac">
+            <End Role="proizvodac" EntitySet="proizvodac" />
+            <End Role="lijek" EntitySet="lijek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stavka_racuna_lijek" Association="Self.FK_stavka_racuna_lijek">
+            <End Role="lijek" EntitySet="lijek" />
+            <End Role="stavka_racuna" EntitySet="stavka_racuna" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stavka_racuna_racun" Association="Self.FK_stavka_racuna_racun">
+            <End Role="racun" EntitySet="racun" />
+            <End Role="stavka_racuna" EntitySet="stavka_racuna" />
+          </AssociationSet>
+          <AssociationSet Name="koristi" Association="Self.koristi">
+            <End Role="klijent" EntitySet="klijent" />
+            <End Role="lijek" EntitySet="lijek" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PharmaCare_DBModelStoreContainer" CdmEntityContainer="PharmaCare_DBEntities">
+          <EntitySetMapping Name="klijent">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.klijent">
+              <MappingFragment StoreEntitySet="klijent">
+                <ScalarProperty Name="klijent_id" ColumnName="klijent_id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="kontakt_broj" ColumnName="kontakt_broj" />
+                <ScalarProperty Name="email_adresa" ColumnName="email_adresa" />
+                <ScalarProperty Name="starost" ColumnName="starost" />
+                <ScalarProperty Name="clan" ColumnName="clan" />
+                <ScalarProperty Name="bodovi" ColumnName="bodovi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="korisnik">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.korisnik">
+              <MappingFragment StoreEntitySet="korisnik">
+                <ScalarProperty Name="korisnik_id" ColumnName="korisnik_id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="kontakt_broj" ColumnName="kontakt_broj" />
+                <ScalarProperty Name="email_adresa" ColumnName="email_adresa" />
+                <ScalarProperty Name="korisnicko_ime" ColumnName="korisnicko_ime" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="uloga_id" ColumnName="uloga_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lijek">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.lijek">
+              <MappingFragment StoreEntitySet="lijek">
+                <ScalarProperty Name="cijena__HRK_" ColumnName="cijena (HRK)" />
+                <ScalarProperty Name="lijek_id" ColumnName="lijek_id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="stanje_zaliha" ColumnName="stanje_zaliha" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="rok_uporabe" ColumnName="rok_uporabe" />
+                <ScalarProperty Name="ime_dobavljaca" ColumnName="ime_dobavljaca" />
+                <ScalarProperty Name="datum_proizvodnje" ColumnName="datum_proizvodnje" />
+                <ScalarProperty Name="proizvodac_id" ColumnName="proizvodac_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proizvodac">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.proizvodac">
+              <MappingFragment StoreEntitySet="proizvodac">
+                <ScalarProperty Name="proizvodac_id" ColumnName="proizvodac_id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="zemlja_porijekla" ColumnName="zemlja_porijekla" />
+                <ScalarProperty Name="kontakt_broj" ColumnName="kontakt_broj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="racun">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.racun">
+              <MappingFragment StoreEntitySet="racun">
+                <ScalarProperty Name="ukupni_iznos__HRK_" ColumnName="ukupni_iznos (HRK)" />
+                <ScalarProperty Name="racun_id" ColumnName="racun_id" />
+                <ScalarProperty Name="datum_vrijeme_izdavanja" ColumnName="datum_vrijeme_izdavanja" />
+                <ScalarProperty Name="klijent_id" ColumnName="klijent_id" />
+                <ScalarProperty Name="korisnik_id" ColumnName="korisnik_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stavka_racuna">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.stavka_racuna">
+              <MappingFragment StoreEntitySet="stavka_racuna">
+                <ScalarProperty Name="racun_id" ColumnName="racun_id" />
+                <ScalarProperty Name="lijek_id" ColumnName="lijek_id" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uloga">
+            <EntityTypeMapping TypeName="PharmaCare_DBModel.uloga">
+              <MappingFragment StoreEntitySet="uloga">
+                <ScalarProperty Name="uloga_id" ColumnName="uloga_id" />
+                <ScalarProperty Name="naziv_uloge" ColumnName="naziv_uloge" />
+                <ScalarProperty Name="datum_dodjele" ColumnName="datum_dodjele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="koristi" TypeName="PharmaCare_DBModel.koristi" StoreEntitySet="koristi">
+            <EndProperty Name="klijent">
+              <ScalarProperty Name="klijent_id" ColumnName="klijent_id" />
+            </EndProperty>
+            <EndProperty Name="lijek">
+              <ScalarProperty Name="lijek_id" ColumnName="lijek_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

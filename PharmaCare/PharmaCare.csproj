@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F3001DD1-98A0-4970-9162-821D4D1AE8F4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PharmaCare</RootNamespace>
+    <AssemblyName>PharmaCare</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resursi\PharmaCareLogo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Baza\klijent.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\korisnik.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\lijek.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\PharmaCareModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PharmaCareModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\PharmaCareModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\PharmaCareModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PharmaCareModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\proizvodac.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\racun.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\stavka_racuna.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Baza\uloga.cs">
+      <DependentUpon>PharmaCareModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormIzdavanjeRacuna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormIzdavanjeRacuna.Designer.cs">
+      <DependentUpon>FormIzdavanjeRacuna.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormAzuriraj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormAzuriraj.Designer.cs">
+      <DependentUpon>FormAzuriraj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormDodaj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormDodaj.Designer.cs">
+      <DependentUpon>FormDodaj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormKlijenti.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormKlijenti.Designer.cs">
+      <DependentUpon>FormKlijenti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormLijekovi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormLijekovi.Designer.cs">
+      <DependentUpon>FormLijekovi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormNarucivanje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormNarucivanje.Designer.cs">
+      <DependentUpon>FormNarucivanje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormPocetna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormPocetna.Designer.cs">
+      <DependentUpon>FormPocetna.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormPrijava.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormPrijava.Designer.cs">
+      <DependentUpon>FormPrijava.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormProizvodaciLijekova.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormProizvodaciLijekova.Designer.cs">
+      <DependentUpon>FormProizvodaciLijekova.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FormRacuni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FormRacuni.Designer.cs">
+      <DependentUpon>FormRacuni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Klase\klijent.ext.cs" />
+    <Compile Include="Klase\Korisnik.cs" />
+    <Compile Include="Klase\lijek.ext.cs" />
+    <Compile Include="Klase\proizvodac.ext.cs" />
+    <Compile Include="Program.cs" />
+    <EmbeddedResource Include="Forme\FormIzdavanjeRacuna.resx">
+      <DependentUpon>FormIzdavanjeRacuna.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forme\FormAzuriraj.resx">
+      <DependentUpon>FormAzuriraj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormDodaj.resx">
+      <DependentUpon>FormDodaj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormKlijenti.resx">
+      <DependentUpon>FormKlijenti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormLijekovi.resx">
+      <DependentUpon>FormLijekovi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormNarucivanje.resx">
+      <DependentUpon>FormNarucivanje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormPocetna.resx">
+      <DependentUpon>FormPocetna.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormPrijava.resx">
+      <DependentUpon>FormPrijava.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormProizvodaciLijekova.resx">
+      <DependentUpon>FormProizvodaciLijekova.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FormRacuni.resx">
+      <DependentUpon>FormRacuni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EntityDeploy Include="Baza\PharmaCareModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PharmaCareModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Web.Config" />
+    <None Include="App.Config" />
+    <None Include="Baza\PharmaCareModel.edmx.diagram">
+      <DependentUpon>PharmaCareModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Baza\PharmaCareModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PharmaCareModel.Context.cs</LastGenOutput>
+      <DependentUpon>PharmaCareModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Baza\PharmaCareModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PharmaCareModel.edmx</DependentUpon>
+      <LastGenOutput>PharmaCareModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Resursi\PharmaCareLogo.ico" />
+    <None Include="Resursi\PharmaCareLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IspisPDF\IspisPDF.csproj">
+      <Project>{f7b355d8-585d-43bd-8fda-eeab061e59b7}</Project>
+      <Name>IspisPDF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Canzar_dll\Canzar_dll.csproj">
+      <Project>{6a6b2f80-182b-4863-be87-c3c75207a359}</Project>
+      <Name>Canzar_dll</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
