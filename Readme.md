@@ -10,10 +10,17 @@ Na sljedećoj slici je prikazan prozor popisa proizvođača koja prikazuje njiho
 
 Ako želite dodati proizvođača na popis, potrebno je unijeti podatke u polja iznad. Ako želite ažurirati podatke ili obrisati određenog proizvođača tada ga trebate označiti u tablici i kliknuti na gumb.
 ### Naručivanje lijekova
+Odabirom lijeka kojemu je stanje zaliha manje od 5 komada klikom na *Lijekovi* u izborniku, otključava se gumb **Naruči** koji otvara sljedeći prozor. 
 
+![image](https://user-images.githubusercontent.com/92993079/181908423-04fec4bd-df35-4ea4-ab41-b28d52aa41fa.png)
 
-![image](https://user-images.githubusercontent.com/92993079/181747512-61451f2b-2d96-4799-8b12-97b549b83a59.png)
+Ovdje možemo unijeti količinu koju želimo naručiti.
+### Izdavanje računa
+Na sljedećem ekranu vidi se prozor u kojem se odabire klijent, unose lijekovi koje želi kupiti te izdaje račun. Klijent može kupiti više lijekova te se pojedini lijek na račun stavlja klikom na gumb **Dodaj**.
 
+![image](https://user-images.githubusercontent.com/92993079/181908507-c1a98f22-ea70-436c-bdcc-33723c39a3de.png)
+
+Kada je račun izdan tada se on sprema u popis računa gdje se može i stornirati u slučaju greške.
 ## Korištenje
 Kako se u projektu nalaze osjetljive informacije vezane uz centraliziranu bazu podataka, odlučio sam enkriptirati datoteku koja te informacije sadrži kako podaci ne bi bili dostupni u *plain textu*. Koristio sam RSA algoritam te ću ovdje navesti korake kako dekriptirati datoteku na vašem računalu kako biste mogli pristupiti bazi te pokrenuti aplikaciju.
 ***
